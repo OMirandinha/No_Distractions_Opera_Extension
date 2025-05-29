@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Blocker",
+  "web_accessible_resources": [{
+    "resources": ["blocked.css"],
+    "matches": ["<all_urls>"]
+  }],
+  "version": "1.0",
+  "description": "Block sites you choose",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["webNavigation", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
