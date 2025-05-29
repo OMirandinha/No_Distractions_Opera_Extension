@@ -10,7 +10,7 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["webNavigation", "storage"],
+  "permissions": ["webNavigation", "storage", "tabs"],
   "background": {
     "service_worker": "background.js"
   }

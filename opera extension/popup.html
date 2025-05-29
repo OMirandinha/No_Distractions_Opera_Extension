@@ -18,6 +18,21 @@
     
     <h2>Blocked Sites</h2>
     <ul id="blockList" class="block-list"></ul>
+    
+    <div class="divider"></div>
+
+    <h2>Tab Limits</h2>
+    <div class="input-group">
+      <input 
+        type="number" 
+        id="tabLimitInput" 
+        placeholder="Max tabs allowed" 
+        min="1"  <!-- Prevents 0 or negative values -->
+      >
+      <button id="setTabLimitBtn">Apply</button>
+    </div>
+    <p id="tabLimitError" class="error-message"></p>
+    <p id="tabLimitStatus">Current limit: None set</p>
   </div>
   <script src="popup.js"></script>
 </body>
