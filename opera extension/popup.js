@@ -49,6 +49,17 @@ document.getElementById('blockBtn').addEventListener('click', async () => {
 });
 
 // Tab Limits
+async function updateTabLimitDisplay() {
+  const { tabLimit } = await chrome.storage.sync.get('tabLimit');
+  const statusEl = document.getElementById('tabLimitStatus');
+  if (tabLimit) {
+    statusEl.textContent = `Current limit: ${tabLimit} tabs`;
+  } else {
+    statusEl.textContent = 'No tab limit set';
+  }
+}
+
+// Modify your existing tab limit setter to:
 document.getElementById('setTabLimitBtn').addEventListener('click', async () => {
   const limitInput = document.getElementById('tabLimitInput');
   const errorEl = document.getElementById('tabLimitError');
@@ -67,17 +78,18 @@ document.getElementById('setTabLimitBtn').addEventListener('click', async () => 
     errorEl.style.display = "none";
     statusEl.textContent = `Current limit: ${limit} tabs`;
     limitInput.value = "";
+    
+    // Immediately enforce the new limit
+    chrome.runtime.sendMessage({ action: 'enforceTabLimit' });
   } catch (error) {
     errorEl.textContent = "Failed to save limit";
     errorEl.style.display = "block";
   }
 });
 
-// Initialize
+// Initialization
 chrome.storage.sync.get(['blockedSites', 'tabLimit'], (data) => {
   updateBlockList();
-  if (data.tabLimit) {
-    document.getElementById('tabLimitStatus').textContent = 
-      `Current limit: ${data.tabLimit} tabs`;
-  }
+  updateTabLimitDisplay();
 });
+
